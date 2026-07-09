@@ -151,11 +151,19 @@ function ServicesDropdown({ onNavigate }) {
 export default function SiteHeader() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const headerRef = useRef(null);
   const mobilePanelRef = useRef(null);
   const mobileIconRef = useRef(null);
+  const mobileServicesPanelRef = useRef(null);
+  const mobileServicesChevronRef = useRef(null);
   const lastScrollRef = useRef(0);
   const hiddenRef = useRef(false);
+
+  function closeMobileMenu() {
+    setIsOpen(false);
+    setMobileServicesOpen(false);
+  }
 
   useEffect(() => {
     const header = headerRef.current;
@@ -238,7 +246,39 @@ export default function SiteHeader() {
     if (icon) {
       gsap.to(icon, { rotate: isOpen ? 90 : 0, duration: 0.3, ease: "power2.out" });
     }
+
+    if (!isOpen) {
+      setMobileServicesOpen(false);
+    }
   }, [isOpen]);
+
+  useEffect(() => {
+    const panel = mobileServicesPanelRef.current;
+    const chevron = mobileServicesChevronRef.current;
+    if (!panel) return;
+
+    if (mobileServicesOpen) {
+      gsap.set(panel, { display: "block", height: "auto" });
+      const fullHeight = panel.offsetHeight;
+      gsap.fromTo(
+        panel,
+        { height: 0, opacity: 0 },
+        { height: fullHeight, opacity: 1, duration: 0.35, ease: "power3.out" },
+      );
+    } else {
+      gsap.to(panel, {
+        height: 0,
+        opacity: 0,
+        duration: 0.25,
+        ease: "power2.in",
+        onComplete: () => gsap.set(panel, { display: "none" }),
+      });
+    }
+
+    if (chevron) {
+      gsap.to(chevron, { rotate: mobileServicesOpen ? 180 : 0, duration: 0.3, ease: "power2.out" });
+    }
+  }, [mobileServicesOpen]);
 
   return (
     <header
@@ -321,6 +361,72 @@ export default function SiteHeader() {
           {navLinks.map((link) => {
             const active = pathname === link.href;
 
+            if (link.href === "/services") {
+              const servicesActive = pathname === "/services" || pathname.startsWith("/services/");
+
+              return (
+                <div key={link.href} data-mobile-item className="flex flex-col">
+                  <div
+                    className={`flex items-center gap-1 rounded-2xl pr-2 ${
+                      servicesActive
+                        ? "bg-primary/15 text-white ring-1 ring-inset ring-primary/40"
+                        : "bg-white/5 text-white/75"
+                    }`}
+                  >
+                    <Link
+                      href="/services"
+                      className="flex-1 rounded-2xl px-4 py-3 text-sm hover:text-white"
+                      onClick={closeMobileMenu}
+                    >
+                      Services
+                    </Link>
+                    <button
+                      type="button"
+                      aria-label="Toggle services list"
+                      aria-expanded={mobileServicesOpen}
+                      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-white/60 hover:text-white"
+                      onClick={() => setMobileServicesOpen((value) => !value)}
+                    >
+                      <span ref={mobileServicesChevronRef} className="inline-flex">
+                        <ChevronIcon />
+                      </span>
+                    </button>
+                  </div>
+
+                  <div
+                    ref={mobileServicesPanelRef}
+                    style={{ display: "none", height: 0, overflow: "hidden" }}
+                  >
+                    <div className="grid grid-cols-1 gap-x-4 gap-y-4 py-4 pl-2 sm:grid-cols-2">
+                      {serviceCategories.map((category) => {
+                        const items = services.filter((service) => service.category === category);
+
+                        return (
+                          <div key={category}>
+                            <p className="mb-1.5 px-4 text-[10px] font-semibold uppercase tracking-[0.24em] text-white/35">
+                              {category}
+                            </p>
+                            <div className="space-y-0.5">
+                              {items.map((service) => (
+                                <Link
+                                  key={service.slug}
+                                  href={`/services/${service.slug}`}
+                                  className="block rounded-xl px-4 py-2 text-sm text-white/65 hover:bg-white/10 hover:text-white"
+                                  onClick={closeMobileMenu}
+                                >
+                                  {service.title}
+                                </Link>
+                              ))}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+
             return (
               <Link
                 key={link.href}
@@ -331,7 +437,7 @@ export default function SiteHeader() {
                     ? "bg-primary/15 text-white ring-1 ring-inset ring-primary/40"
                     : "bg-white/5 text-white/75 hover:bg-white/10 hover:text-white"
                 }`}
-                onClick={() => setIsOpen(false)}
+                onClick={closeMobileMenu}
               >
                 {link.label}
               </Link>
@@ -342,7 +448,7 @@ export default function SiteHeader() {
             <MagneticButton
               href="/contact"
               className="mt-2 w-full justify-center"
-              onClick={() => setIsOpen(false)}
+              onClick={closeMobileMenu}
             >
               Start Your Project
             </MagneticButton>
