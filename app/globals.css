@@ -70,6 +70,14 @@ body {
   background: rgba(34, 211, 238, 0.045);
 }
 
+/* Animated blur at this size is expensive on mobile GPUs and can make
+   the whole page feel like it's stuttering/shaking while it runs. */
+@media (max-width: 767px) {
+  .ambient-bg span {
+    animation: none;
+  }
+}
+
 a {
   color: inherit;
   text-decoration: none;

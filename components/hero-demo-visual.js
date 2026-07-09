@@ -122,14 +122,20 @@ export default function HeroDemoVisual() {
         statsTl.to({}, { duration: 2 });
       });
 
-      // Cursor click loop
+      // Cursor click loop — animates via transform (x/y), never left/top,
+      // so it never forces a layout reflow of the whole page while it plays.
       const cursor = cursorRef.current;
       const ripple = rippleRef.current;
-      if (cursor && ripple) {
-        gsap.set(cursor, { xPercent: -50, yPercent: -50 });
+      const panel = root.querySelector(".panel");
+      if (cursor && ripple && panel) {
+        const panelRect = panel.getBoundingClientRect();
+        const dx = panelRect.width * 0.6;
+        const dy = panelRect.height * 0.62;
+
+        gsap.set(cursor, { xPercent: -50, yPercent: -50, x: 0, y: 0 });
         const tl = gsap.timeline({ repeat: -1, repeatDelay: 1.8 });
         tl.to(cursor, { opacity: 1, duration: 0.3 })
-          .to(cursor, { left: "78%", top: "84%", duration: 1.1, ease: "power2.inOut" })
+          .to(cursor, { x: dx, y: dy, duration: 1.1, ease: "power2.inOut" })
           .to(cursor, { scale: 0.8, duration: 0.12, yoyo: true, repeat: 1 })
           .fromTo(
             ripple,
@@ -138,7 +144,7 @@ export default function HeroDemoVisual() {
             "<",
           )
           .to(cursor, { opacity: 0, duration: 0.3, delay: 0.6 })
-          .set(cursor, { left: "18%", top: "22%" });
+          .set(cursor, { x: 0, y: 0 });
       }
 
       // Floating corner badges

@@ -33,6 +33,12 @@ export default function HomeHero() {
     const root = rootRef.current;
     if (!root) return;
 
+    // The 3D rotateX flip is GPU-heavy and can make the whole page feel
+    // like it's shaking on weaker mobile devices — desktop only, checked
+    // once on mount (this is an entrance animation, not something that
+    // needs to react live to resizing).
+    const isDesktop = window.innerWidth >= 768;
+
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
@@ -43,14 +49,12 @@ export default function HomeHero() {
       )
         .fromTo(
           "[data-hero='title'] span",
-          { opacity: 0, y: 42, rotateX: 45, transformOrigin: "bottom center" },
-          {
-            opacity: 1,
-            y: 0,
-            rotateX: 0,
-            duration: 0.95,
-            stagger: 0.07,
-          },
+          isDesktop
+            ? { opacity: 0, y: 42, rotateX: 45, transformOrigin: "bottom center" }
+            : { opacity: 0, y: 24 },
+          isDesktop
+            ? { opacity: 1, y: 0, rotateX: 0, duration: 0.95, stagger: 0.07 }
+            : { opacity: 1, y: 0, duration: 0.7, stagger: 0.05 },
           "-=0.25",
         )
         .fromTo(
