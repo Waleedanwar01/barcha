@@ -81,7 +81,7 @@ export default function ServiceDetailPage({ params }) {
                 <div className="panel relative flex h-56 items-center justify-center overflow-hidden md:h-64">
                   <Image
                     src={service.image}
-                    alt={service.title}
+                    alt={`${service.title} illustration — ${service.short}`}
                     fill
                     sizes="(min-width: 1024px) 480px, 100vw"
                     className="object-contain p-4"
