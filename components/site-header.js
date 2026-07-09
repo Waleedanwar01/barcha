@@ -221,12 +221,21 @@ export default function SiteHeader() {
     if (!panel) return;
 
     if (isOpen) {
-      gsap.set(panel, { display: "block", height: "auto" });
+      gsap.set(panel, { display: "block", height: "auto", overflow: "hidden" });
       const fullHeight = panel.offsetHeight;
       gsap.fromTo(
         panel,
         { height: 0, opacity: 0 },
-        { height: fullHeight, opacity: 1, duration: 0.4, ease: "power3.out" },
+        {
+          height: fullHeight,
+          opacity: 1,
+          duration: 0.4,
+          ease: "power3.out",
+          // Once open, let the panel grow with its content (e.g. the
+          // services accordion expanding inside it) instead of staying
+          // clipped at the height it had when the menu first opened.
+          onComplete: () => gsap.set(panel, { height: "auto", overflow: "visible" }),
+        },
       );
       gsap.fromTo(
         panel.querySelectorAll("[data-mobile-item]"),
@@ -234,6 +243,7 @@ export default function SiteHeader() {
         { opacity: 1, y: 0, duration: 0.4, stagger: 0.05, delay: 0.1, ease: "power3.out" },
       );
     } else {
+      gsap.set(panel, { height: panel.offsetHeight, overflow: "hidden" });
       gsap.to(panel, {
         height: 0,
         opacity: 0,
@@ -258,14 +268,21 @@ export default function SiteHeader() {
     if (!panel) return;
 
     if (mobileServicesOpen) {
-      gsap.set(panel, { display: "block", height: "auto" });
+      gsap.set(panel, { display: "block", height: "auto", overflow: "hidden" });
       const fullHeight = panel.offsetHeight;
       gsap.fromTo(
         panel,
         { height: 0, opacity: 0 },
-        { height: fullHeight, opacity: 1, duration: 0.35, ease: "power3.out" },
+        {
+          height: fullHeight,
+          opacity: 1,
+          duration: 0.35,
+          ease: "power3.out",
+          onComplete: () => gsap.set(panel, { height: "auto", overflow: "visible" }),
+        },
       );
     } else {
+      gsap.set(panel, { height: panel.offsetHeight, overflow: "hidden" });
       gsap.to(panel, {
         height: 0,
         opacity: 0,
