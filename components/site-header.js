@@ -234,7 +234,11 @@ export default function SiteHeader() {
           // Once open, let the panel grow with its content (e.g. the
           // services accordion expanding inside it) instead of staying
           // clipped at the height it had when the menu first opened.
-          onComplete: () => gsap.set(panel, { height: "auto", overflow: "visible" }),
+          // overflow stays auto (not visible) because the panel is
+          // capped at the viewport height via max-h — a sticky header
+          // taller than the screen has no other way to reach content
+          // past the fold, so it needs to scroll internally.
+          onComplete: () => gsap.set(panel, { height: "auto", overflow: "auto" }),
         },
       );
       gsap.fromTo(
@@ -372,7 +376,7 @@ export default function SiteHeader() {
       <div
         ref={mobilePanelRef}
         style={{ display: "none", height: 0, overflow: "hidden" }}
-        className="border-t border-white/10 bg-[#050914] lg:hidden"
+        className="max-h-[calc(100dvh-5rem)] overscroll-contain border-t border-white/10 bg-[#050914] [-webkit-overflow-scrolling:touch] lg:hidden md:max-h-[calc(100dvh-6rem)]"
       >
         <div className="flex flex-col gap-2 px-6 py-5">
           {navLinks.map((link) => {
