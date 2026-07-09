@@ -181,7 +181,7 @@ export default function HeroDemoVisual() {
           <p
             ref={typeRef}
             data-typewriter
-            className="font-heading text-xl font-bold text-white md:text-2xl"
+            className="h-7 overflow-hidden whitespace-nowrap font-heading text-xl font-bold text-white md:h-8 md:text-2xl"
           >
             &nbsp;
           </p>
@@ -189,14 +189,14 @@ export default function HeroDemoVisual() {
           <div className="space-y-4">
             {statSets[0].map((item, i) => (
               <div key={i} data-stat-bar className="space-y-1.5">
-                <div className="flex items-center justify-between text-xs">
+                <div className="flex items-center justify-between gap-3 text-xs">
                   <span
                     data-bar-label
-                    className="uppercase tracking-[0.16em] text-white/45"
+                    className="min-w-0 truncate uppercase tracking-[0.16em] text-white/45"
                   >
                     {item.label}
                   </span>
-                  <span data-bar-num className="font-heading font-bold text-white">
+                  <span data-bar-num className="shrink-0 font-heading font-bold text-white">
                     0%
                   </span>
                 </div>

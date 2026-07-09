@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import CtaBanner from "../../../components/cta-banner";
 import MagneticButton from "../../../components/magnetic-button";
@@ -75,19 +76,34 @@ export default function ServiceDetailPage({ params }) {
               </div>
             </div>
 
-            <div className="panel p-8">
-              <p className="text-xs uppercase tracking-[0.24em] text-white/45">
-                Key Outcomes
-              </p>
-              <div className="mt-6 space-y-4">
-                {service.outcomes.map((item) => (
-                  <div
-                    key={item}
-                    className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-4 text-sm text-white/70"
-                  >
-                    {item}
-                  </div>
-                ))}
+            <div className="space-y-6">
+              {service.image ? (
+                <div className="panel relative flex h-56 items-center justify-center overflow-hidden md:h-64">
+                  <Image
+                    src={service.image}
+                    alt={service.title}
+                    fill
+                    sizes="(min-width: 1024px) 480px, 100vw"
+                    className="object-contain p-4"
+                    priority
+                  />
+                </div>
+              ) : null}
+
+              <div className="panel p-8">
+                <p className="text-xs uppercase tracking-[0.24em] text-white/45">
+                  Key Outcomes
+                </p>
+                <div className="mt-6 space-y-4">
+                  {service.outcomes.map((item) => (
+                    <div
+                      key={item}
+                      className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-4 text-sm text-white/70"
+                    >
+                      {item}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
