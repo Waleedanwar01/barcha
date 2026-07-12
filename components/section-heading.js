@@ -3,9 +3,10 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 
-export default function SectionHeading({ eyebrow, title, text, align = "left" }) {
+export default function SectionHeading({ eyebrow, title, text, align = "left", as = "h2" }) {
   const aligned = align === "center" ? "mx-auto text-center" : "";
   const rootRef = useRef(null);
+  const HeadingTag = as;
 
   useEffect(() => {
     const root = rootRef.current;
@@ -48,12 +49,12 @@ export default function SectionHeading({ eyebrow, title, text, align = "left" })
         </div>
       ) : null}
       <div className="space-y-4">
-        <h2
+        <HeadingTag
           data-heading
           className="font-heading text-4xl font-bold uppercase leading-none tracking-tight text-white md:text-6xl"
         >
           {title}
-        </h2>
+        </HeadingTag>
         {text ? (
           <p data-heading className="text-base leading-7 text-white/65 md:text-lg">
             {text}

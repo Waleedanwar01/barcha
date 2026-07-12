@@ -14,6 +14,7 @@ export default function PrivacyPage() {
     <section className="px-6 pb-20 pt-20 md:px-10 md:pt-28">
       <div className="mx-auto max-w-5xl">
         <SectionHeading
+          as="h1"
           eyebrow="Privacy"
           title="Privacy guidelines regarding site operations."
           text="This page summarizes our approach to collecting information and processing data."

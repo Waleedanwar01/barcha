@@ -17,6 +17,7 @@ export default function TechPage() {
       <section className="px-6 pb-16 pt-20 md:px-10 md:pt-28">
         <div className="mx-auto max-w-6xl text-center">
           <SectionHeading
+            as="h1"
             eyebrow="Tech Stack"
             title="Premium frameworks and modern devtools."
             text="We choose reliable, fast, and SEO-optimized software stacks. Each tool serves a purpose: security, modular design, smooth interaction, and page performance."

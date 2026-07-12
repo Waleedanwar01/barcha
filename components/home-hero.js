@@ -49,12 +49,16 @@ export default function HomeHero() {
       )
         .fromTo(
           "[data-hero='title'] span",
+          // No opacity:0 here on purpose — this heading is the page's LCP
+          // element, and animating opacity delays when Chrome considers it
+          // "painted" for Largest Contentful Paint. The slide/flip motion
+          // is kept; the text is just visible (non-transparent) throughout.
           isDesktop
-            ? { opacity: 0, y: 42, rotateX: 45, transformOrigin: "bottom center" }
-            : { opacity: 0, y: 24 },
+            ? { y: 42, rotateX: 45, transformOrigin: "bottom center" }
+            : { y: 24 },
           isDesktop
-            ? { opacity: 1, y: 0, rotateX: 0, duration: 0.95, stagger: 0.07 }
-            : { opacity: 1, y: 0, duration: 0.7, stagger: 0.05 },
+            ? { y: 0, rotateX: 0, duration: 0.95, stagger: 0.07 }
+            : { y: 0, duration: 0.7, stagger: 0.05 },
           "-=0.25",
         )
         .fromTo(

@@ -1,7 +1,7 @@
 const wrap = (color, path) => ({
   color,
   icon: (
-    <svg viewBox="0 0 24 24" fill="none" className="h-7 w-7" stroke={color} strokeWidth="1.7">
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="h-7 w-7" stroke={color} strokeWidth="1.7">
       {path}
     </svg>
   ),

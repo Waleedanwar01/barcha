@@ -18,6 +18,7 @@ export default function IndustriesPage() {
       <section className="px-6 pb-10 pt-20 md:px-10 md:pt-28">
         <div className="mx-auto max-w-6xl text-center">
           <SectionHeading
+            as="h1"
             eyebrow="Industries"
             title="Every industry requires a tailored solution."
             text="Different markets demand specific trust signals, user flows, and conversion paths. Our design and messaging strategies are fully market-aware."

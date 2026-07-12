@@ -323,7 +323,7 @@ export default function SiteHeader() {
         </Link>
 
         <div className="flex flex-1 items-center justify-end gap-3 px-4 md:px-6 xl:px-8">
-          <nav className="hidden items-center gap-0.5 lg:flex xl:gap-1" data-animate>
+          <nav aria-label="Primary" className="hidden items-center gap-0.5 lg:flex xl:gap-1" data-animate>
             {navLinks.map((link) => {
               const active = pathname === link.href;
 

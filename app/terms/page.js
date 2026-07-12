@@ -14,6 +14,7 @@ export default function TermsPage() {
     <section className="px-6 pb-20 pt-20 md:px-10 md:pt-28">
       <div className="mx-auto max-w-5xl">
         <SectionHeading
+          as="h1"
           eyebrow="Terms"
           title="Terms of service and delivery expectations."
           text="These terms govern general client engagements. Detailed project agreements are finalized separately during onboarding."

@@ -16,6 +16,7 @@ export default function SitemapPage() {
     <section className="px-6 pb-20 pt-20 md:px-10 md:pt-28">
       <div className="mx-auto max-w-6xl">
         <SectionHeading
+          as="h1"
           eyebrow="Sitemap"
           title="All major routes in one place."
           text="This page displays our Next.js project routing structure for search engine crawl efficiency."

@@ -40,6 +40,9 @@ export default function ServiceDetailPage({ params }) {
 
   const details = serviceDetails[params.slug];
   const iconData = getServiceIcon(service.slug);
+  const relatedServices = services
+    .filter((item) => item.category === service.category && item.slug !== service.slug)
+    .slice(0, 3);
 
   const breadcrumbTrail = [
     { name: "Home", path: "/" },
@@ -197,6 +200,45 @@ export default function ServiceDetailPage({ params }) {
                   {tool}
                 </span>
               ))}
+            </Reveal>
+          </div>
+        </section>
+      ) : null}
+
+      {relatedServices.length ? (
+        <section className="px-6 py-16 md:px-10">
+          <div className="mx-auto max-w-7xl">
+            <SectionHeading
+              eyebrow="Related Services"
+              title={`More in ${service.category}.`}
+              text="Other services in the same category that often pair naturally with this one."
+            />
+
+            <Reveal className="mt-12 grid gap-6 md:grid-cols-3">
+              {relatedServices.map((related) => {
+                const relatedIcon = getServiceIcon(related.slug);
+
+                return (
+                  <Link
+                    key={related.slug}
+                    href={`/services/${related.slug}`}
+                    className="panel group block p-7 transition hover:-translate-y-1 hover:border-primary/40"
+                  >
+                    {relatedIcon ? (
+                      <span
+                        className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-full [&_svg]:h-5 [&_svg]:w-5"
+                        style={{ backgroundColor: `${relatedIcon.color}1F` }}
+                      >
+                        {relatedIcon.icon}
+                      </span>
+                    ) : null}
+                    <h3 className="mt-4 font-heading text-lg font-bold text-white transition group-hover:text-white/90">
+                      {related.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-6 text-white/60">{related.short}</p>
+                  </Link>
+                );
+              })}
             </Reveal>
           </div>
         </section>

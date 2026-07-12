@@ -57,6 +57,7 @@ export default function AboutPage() {
       <section className="px-6 pb-16 pt-20 md:px-10 md:pt-28">
         <div className="mx-auto max-w-6xl text-center">
           <SectionHeading
+            as="h1"
             eyebrow="Who We Are"
             title="We make premium digital execution accessible."
             text="Barcha Digital was built for ambitious local businesses ready to move beyond generic templates and step into premium positioning and measurable growth."

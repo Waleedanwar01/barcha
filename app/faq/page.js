@@ -23,6 +23,7 @@ export default function FaqPage() {
       <section className="px-6 pb-16 pt-20 md:px-10 md:pt-28">
         <div className="mx-auto max-w-6xl text-center">
           <SectionHeading
+            as="h1"
             eyebrow="FAQ"
             title="Common questions before redesign & development."
             text="If you are considering moving your current website to a modern, performant frontend stack, these answers clarify our direction."

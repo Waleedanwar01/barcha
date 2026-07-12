@@ -230,7 +230,7 @@ export default function HeroDemoVisual() {
             ref={rippleRef}
             className="absolute left-1/2 top-1/2 h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent opacity-0"
           />
-          <svg viewBox="0 0 24 24" className="h-5 w-5 drop-shadow-lg" fill="white">
+          <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5 drop-shadow-lg" fill="white">
             <path d="M4 2l14 7.5-6 1.5L10 18z" />
           </svg>
         </div>
