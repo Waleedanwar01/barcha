@@ -1,3 +1,4 @@
+import Image from "next/image";
 import AutoSlider from "../components/auto-slider";
 import CtaBanner from "../components/cta-banner";
 import HomeHero from "../components/home-hero";
@@ -16,6 +17,7 @@ import TrustStrip from "../components/trust-strip";
 import VerticalTicker from "../components/vertical-ticker";
 import { buildMetadata } from "../lib/seo";
 import {
+  b2bHighlights,
   featuredWork,
   priorityIndustries,
   processSteps,
@@ -62,10 +64,40 @@ export default function HomePage() {
           <SectionHeading
             eyebrow="Who We Serve Best"
             title="Built for the businesses that need to rank and convert."
-            text="We focus where our systems perform strongest — home service and content-driven businesses that live or die by search visibility."
+            text="We focus where our systems perform strongest — home service and content-driven businesses, plus B2B companies that live or die by search visibility and lead generation."
           />
 
           <VerticalTicker items={priorityIndustries} />
+        </div>
+      </section>
+
+      <section id="b2b" className="px-6 py-20 md:px-10">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeading
+            eyebrow="Beyond Local"
+            title="We also build for B2B companies."
+            text="Barcha Digital isn't only local-service work — we build the same premium standard for B2B teams: portals, technical SEO, and interfaces built to convert a slower, more research-heavy buyer."
+          />
+
+          <Reveal className="mt-12 grid gap-6 md:grid-cols-3">
+            {b2bHighlights.map((item) => (
+              <div key={item.title} className="panel overflow-hidden">
+                <div className="relative h-40 w-full bg-white/[0.02]">
+                  <Image
+                    src={item.image}
+                    alt={item.alt}
+                    fill
+                    sizes="(min-width: 768px) 33vw, 100vw"
+                    className="object-contain p-4"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="font-heading text-lg font-bold text-white">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-white/65">{item.text}</p>
+                </div>
+              </div>
+            ))}
+          </Reveal>
         </div>
       </section>
 
