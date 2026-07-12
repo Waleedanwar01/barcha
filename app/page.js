@@ -14,6 +14,7 @@ import ServiceCard from "../components/service-card";
 import TestimonialsMarquee from "../components/testimonials-marquee";
 import TrustStrip from "../components/trust-strip";
 import VerticalTicker from "../components/vertical-ticker";
+import { buildMetadata } from "../lib/seo";
 import {
   featuredWork,
   priorityIndustries,
@@ -24,17 +25,14 @@ import {
 
 const featuredServices = services.slice(0, 6);
 
-export const metadata = {
+export const metadata = buildMetadata({
   title: "Barcha Digital | Web, SEO & Ads Agency for Local Businesses",
   description:
-    "Barcha Digital is a premium digital agency for local businesses — custom web development, WordPress, Shopify, Google & social ads, branding, AI-powered design, and SEO.",
-  keywords: "web development, SEO agency, digital marketing, branding, Next.js development, custom websites, local business marketing",
-  openGraph: {
-    title: "Barcha Digital | Web, SEO & Ads Agency for Local Businesses",
-    description: "We build clear, conversion-focused websites and growth systems for local businesses. Web development, SEO, ads, branding & AI design.",
-    type: "website",
-  },
-};
+    "Barcha Digital is a remote-first digital agency delivering websites, SEO, ads, branding, and AI-powered design for local businesses across the US, Canada, UK, and Australia.",
+  keywords:
+    "web development agency, SEO agency, digital marketing agency, branding agency, Next.js development, custom websites, local business marketing",
+  path: "/",
+});
 
 export default function HomePage() {
   return (

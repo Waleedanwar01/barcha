@@ -1,17 +1,28 @@
 import CtaBanner from "../../components/cta-banner";
 import PageHero from "../../components/page-hero";
 import ServiceScrollStack from "../../components/service-scroll-stack";
+import { breadcrumbJsonLd, buildMetadata } from "../../lib/seo";
 import { serviceCategories, services } from "../../lib/site-data";
 
-export const metadata = {
+export const metadata = buildMetadata({
   title: "Our Services | Barcha Digital",
   description:
-    "Barcha Digital offers custom web development, WordPress, Shopify storefronts, Django backends, SEO, Google & social ads, branding, AI-powered design, and automated workflows.",
-};
+    "Barcha Digital offers custom web development, WordPress, Shopify storefronts, Django backends, SEO, Google & social ads, branding, AI-powered design, and automated workflows — for businesses across the US, Canada, UK, and Australia.",
+  path: "/services",
+});
+
+const servicesBreadcrumb = breadcrumbJsonLd([
+  { name: "Home", path: "/" },
+  { name: "Services", path: "/services" },
+]);
 
 export default function ServicesPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesBreadcrumb) }}
+      />
       <PageHero
         eyebrow="Services"
         title="Everything you need to ship a clear website."

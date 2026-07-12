@@ -1,11 +1,13 @@
 import SectionHeading from "../../components/section-heading";
 import Reveal from "../../components/reveal";
+import { buildMetadata } from "../../lib/seo";
 import { legalSections } from "../../lib/site-data";
 
-export const metadata = {
+export const metadata = buildMetadata({
   title: "Terms of Service | Barcha Digital",
   description: "Read our terms of service and client deliverables agreements framework.",
-};
+  path: "/terms",
+});
 
 export default function TermsPage() {
   return (

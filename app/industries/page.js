@@ -2,13 +2,15 @@ import AutoSlider from "../../components/auto-slider";
 import CtaBanner from "../../components/cta-banner";
 import Reveal from "../../components/reveal";
 import SectionHeading from "../../components/section-heading";
+import { buildMetadata } from "../../lib/seo";
 import { industries } from "../../lib/site-data";
 
-export const metadata = {
+export const metadata = buildMetadata({
   title: "Industries We Serve | Barcha Digital",
   description:
-    "Explore how Barcha Digital builds custom web layouts, branding materials, and targeted conversion funnels tailored for local industries like healthcare, restaurants, home services, law firms, and real estate.",
-};
+    "Explore how Barcha Digital builds custom web layouts, branding materials, and targeted conversion funnels tailored for local industries like restaurants, home services, law firms, and real estate across the US, Canada, UK, and Australia.",
+  path: "/industries",
+});
 
 export default function IndustriesPage() {
   return (

@@ -1,11 +1,13 @@
 import Link from "next/link";
 import SectionHeading from "../../components/section-heading";
+import { buildMetadata } from "../../lib/seo";
 import { footerLinks, navLinks, services } from "../../lib/site-data";
 
-export const metadata = {
+export const metadata = buildMetadata({
   title: "Sitemap | Barcha Digital",
   description: "View the list of all pages and service listings available on our website.",
-};
+  path: "/sitemap",
+});
 
 export default function SitemapPage() {
   const baseRoutes = [...navLinks, ...footerLinks];

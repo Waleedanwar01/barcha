@@ -1,11 +1,13 @@
 import SectionHeading from "../../components/section-heading";
 import Reveal from "../../components/reveal";
+import { buildMetadata } from "../../lib/seo";
 import { legalSections } from "../../lib/site-data";
 
-export const metadata = {
+export const metadata = buildMetadata({
   title: "Privacy Policy | Barcha Digital",
   description: "Read our privacy guidelines regarding client data, tracking metrics, and operational logs.",
-};
+  path: "/privacy",
+});
 
 export default function PrivacyPage() {
   return (

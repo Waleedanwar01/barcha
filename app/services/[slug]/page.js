@@ -1,10 +1,12 @@
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import CtaBanner from "../../../components/cta-banner";
 import MagneticButton from "../../../components/magnetic-button";
 import Reveal from "../../../components/reveal";
 import SectionHeading from "../../../components/section-heading";
 import { getServiceIcon } from "../../../components/service-icons";
+import { breadcrumbJsonLd, buildMetadata, serviceJsonLd } from "../../../lib/seo";
 import {
   getServiceBySlug,
   serviceDetails,
@@ -22,10 +24,11 @@ export function generateMetadata({ params }) {
     return {};
   }
 
-  return {
+  return buildMetadata({
     title: `${service.title} | Barcha Digital`,
     description: service.short,
-  };
+    path: `/services/${service.slug}`,
+  });
 }
 
 export default function ServiceDetailPage({ params }) {
@@ -38,10 +41,36 @@ export default function ServiceDetailPage({ params }) {
   const details = serviceDetails[params.slug];
   const iconData = getServiceIcon(service.slug);
 
+  const breadcrumbTrail = [
+    { name: "Home", path: "/" },
+    { name: "Services", path: "/services" },
+    { name: service.title, path: `/services/${service.slug}` },
+  ];
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd(service)) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(breadcrumbTrail)) }}
+      />
       <section className="px-6 pb-16 pt-20 md:px-10 md:pt-28">
         <div className="mx-auto max-w-6xl">
+          <nav aria-label="Breadcrumb" className="mb-5 flex flex-wrap items-center gap-1.5 text-xs text-white/45">
+            <Link href="/" className="transition hover:text-white/80">
+              Home
+            </Link>
+            <span aria-hidden="true">/</span>
+            <Link href="/services" className="transition hover:text-white/80">
+              Services
+            </Link>
+            <span aria-hidden="true">/</span>
+            <span className="text-white/70">{service.title}</span>
+          </nav>
+
           <div className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-white/70">
             {iconData ? (
               <span

@@ -1,13 +1,15 @@
 import CtaBanner from "../../components/cta-banner";
 import ProcessTimeline from "../../components/process-timeline";
 import SectionHeading from "../../components/section-heading";
+import { buildMetadata } from "../../lib/seo";
 import { processSteps } from "../../lib/site-data";
 
-export const metadata = {
+export const metadata = buildMetadata({
   title: "Our Process | Barcha Digital",
   description:
     "Learn about Barcha Digital's step-by-step digital process from auditing and strategic alignment, to custom design, high-fidelity development, launch, and growth optimizations.",
-};
+  path: "/process",
+});
 
 export default function ProcessPage() {
   return (

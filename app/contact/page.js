@@ -2,6 +2,7 @@ import SectionHeading from "../../components/section-heading";
 import ContactForm from "../../components/contact-form";
 import Reveal from "../../components/reveal";
 import TrustStrip from "../../components/trust-strip";
+import { buildMetadata } from "../../lib/seo";
 import { contactHighlights, siteConfig } from "../../lib/site-data";
 
 const contactIcons = {
@@ -36,11 +37,12 @@ const contactIcons = {
   ),
 };
 
-export const metadata = {
+export const metadata = buildMetadata({
   title: "Contact Us | Barcha Digital",
   description:
-    "Get in touch with Barcha Digital to discuss website redesigns, WordPress and Shopify builds, Google & social ads, branding systems, and AI-assisted design.",
-};
+    "Get in touch with Barcha Digital to discuss website redesigns, WordPress and Shopify builds, Google & social ads, branding systems, and AI-assisted design — serving clients across the US, Canada, UK, and Australia.",
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

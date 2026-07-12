@@ -5,17 +5,28 @@ import { getPortfolioIcon } from "../../components/portfolio-icons";
 import PortfolioThumb from "../../components/portfolio-thumb";
 import { getServiceIcon } from "../../components/service-icons";
 import TrustStrip from "../../components/trust-strip";
+import { breadcrumbJsonLd, buildMetadata } from "../../lib/seo";
 import { featuredWork } from "../../lib/site-data";
 
-export const metadata = {
+export const metadata = buildMetadata({
   title: "Portfolio | Barcha Digital",
   description:
     "Real projects shipped by Barcha Digital — booking platforms, Shopify stores, insurance quote tools, construction sites, and full-stack apps.",
-};
+  path: "/portfolio",
+});
+
+const portfolioBreadcrumb = breadcrumbJsonLd([
+  { name: "Home", path: "/" },
+  { name: "Portfolio", path: "/portfolio" },
+]);
 
 export default function PortfolioPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(portfolioBreadcrumb) }}
+      />
       <PageHero
         eyebrow="Portfolio"
         title="Where clarity becomes results."

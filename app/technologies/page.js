@@ -2,12 +2,14 @@ import CtaBanner from "../../components/cta-banner";
 import SectionHeading from "../../components/section-heading";
 import TechGrid from "../../components/tech-grid";
 import ToolsDirectory from "../../components/tools-directory";
+import { buildMetadata } from "../../lib/seo";
 
-export const metadata = {
+export const metadata = buildMetadata({
   title: "Tech Stack | Barcha Digital",
   description:
     "The frameworks and tools behind Barcha Digital builds: Next.js, Tailwind CSS, GSAP, Lenis, Django, PostgreSQL, Shopify, WordPress, WooCommerce, plus the SEO, ads, and design tools we use daily.",
-};
+  path: "/technologies",
+});
 
 export default function TechPage() {
   return (

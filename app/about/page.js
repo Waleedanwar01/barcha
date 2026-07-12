@@ -3,6 +3,7 @@ import CtaBanner from "../../components/cta-banner";
 import Reveal from "../../components/reveal";
 import SectionHeading from "../../components/section-heading";
 import TrustStrip from "../../components/trust-strip";
+import { buildMetadata, breadcrumbJsonLd } from "../../lib/seo";
 
 const values = [
   {
@@ -23,15 +24,36 @@ const values = [
   },
 ];
 
-export const metadata = {
+export const metadata = buildMetadata({
   title: "About Us | Barcha Digital",
   description:
-    "Our mission is to equip ambitious local businesses with premium digital systems that drive measurable growth and establish strong online positioning.",
+    "Our mission is to equip ambitious local businesses across the US, Canada, UK, and Australia with premium digital systems that drive measurable growth and establish strong online positioning.",
+  path: "/about",
+});
+
+const aboutBreadcrumb = breadcrumbJsonLd([
+  { name: "Home", path: "/" },
+  { name: "About", path: "/about" },
+]);
+
+const aboutPageJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  name: "About Barcha Digital",
+  url: "https://barchadigital.com/about",
 };
 
 export default function AboutPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutBreadcrumb) }}
+      />
       <section className="px-6 pb-16 pt-20 md:px-10 md:pt-28">
         <div className="mx-auto max-w-6xl text-center">
           <SectionHeading
