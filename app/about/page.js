@@ -1,148 +1,125 @@
-import Image from "next/image";
-import CtaBanner from "../../components/cta-banner";
-import Reveal from "../../components/reveal";
-import SectionHeading from "../../components/section-heading";
-import TrustStrip from "../../components/trust-strip";
-import { buildMetadata, breadcrumbJsonLd } from "../../lib/seo";
-
-const values = [
-  {
-    title: "Innovation",
-    text: "We do not chase temporary trends; we thoroughly test practical tools and only deploy solutions that create real business value.",
-  },
-  {
-    title: "Transparency",
-    text: "Reporting, timelines, and strategic decisions are always crystal clear. Straightforward communication is preferred over fancy jargon.",
-  },
-  {
-    title: "Results First",
-    text: "Every single redesign and marketing campaign is measured directly against actual KPIs, lead flow, and conversion improvements.",
-  },
-  {
-    title: "Partnership",
-    text: "We act as a collaborative growth partner that deeply understands long-term scale and sustainable development.",
-  },
-];
+import Icon from "../../components/icons";
+import { Accent, CtaBanner, PageHero, SectionHeading, StatsBand, VentureShowcase } from "../../components/ui";
+import { about, founders, highlights, principles, siteConfig, ventures } from "../../lib/site-data";
+import { buildMetadata } from "../../lib/seo";
 
 export const metadata = buildMetadata({
-  title: "About Us | Barcha Digital",
+  title: "About",
   description:
-    "Our mission is to equip ambitious local businesses across the US, Canada, UK, and Australia with premium digital systems that drive measurable growth and establish strong online positioning.",
+    "Barcha Global is a remote-first digital agency founded by Waleed Anwar and Asad Anwar, and the parent company of Territory Growth.",
   path: "/about",
 });
-
-const aboutBreadcrumb = breadcrumbJsonLd([
-  { name: "Home", path: "/" },
-  { name: "About", path: "/about" },
-]);
-
-const aboutPageJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "AboutPage",
-  name: "About Barcha Digital",
-  url: "https://barchadigital.com/about",
-};
 
 export default function AboutPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutBreadcrumb) }}
-      />
-      <section className="px-6 pb-16 pt-20 md:px-10 md:pt-28">
-        <div className="mx-auto max-w-6xl text-center">
-          <SectionHeading
-            as="h1"
-            eyebrow="Who We Are"
-            title="We make premium digital execution accessible."
-            text="Barcha Digital was built for ambitious local businesses ready to move beyond generic templates and step into premium positioning and measurable growth."
-            align="center"
-          />
+      <PageHero eyebrow="About us" lines={["A small, senior team", "with *global reach.*"]} text={about.intro} />
+
+      {/* Story */}
+      <section className="section">
+        <div className="container grid gap-14 lg:grid-cols-12">
+          <div className="lg:col-span-5" data-reveal>
+            <span className="eyebrow">Our story</span>
+            <h2 className="mt-5 text-4xl font-semibold leading-[1.05] md:text-5xl">
+              <Accent text="One partner for the *whole picture.*" />
+            </h2>
+          </div>
+          <div className="space-y-8 text-lg leading-relaxed text-ink/65 lg:col-span-7 md:text-xl">
+            {about.story.map((p, i) => (
+              <p key={i} data-reveal style={{ "--d": `${i * 100}ms` }}>
+                {p}
+              </p>
+            ))}
+          </div>
         </div>
       </section>
 
-      <TrustStrip />
-
-      <section className="px-6 py-12 md:px-10">
-        <Reveal
-          className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1.1fr_0.9fr]"
-          y={30}
-        >
-          <div className="panel overflow-hidden p-8 md:p-10">
-            <p className="text-xs uppercase tracking-[0.24em] text-white/45">Our Story</p>
-            <h2 className="mt-4 font-heading text-4xl font-bold uppercase tracking-tight text-white md:text-5xl">
-              Ambitious brands deserve big-league digital quality.
-            </h2>
-            <div className="mt-6 space-y-5 text-base leading-8 text-white/67">
-              <p>
-                Barcha Digital started from a frustration: premium design and robust digital systems were typically reserved for enterprise brands. Local and small-to-medium businesses were left with generic templates or subpar execution.
-              </p>
-              <p>
-                We built a structured process where strategy, UI, messaging, frontend architecture, and growth marketing align seamlessly. The outcome is a website that looks premium and functions as a high-performing business tool.
-              </p>
-            </div>
-            <div className="mt-6 overflow-hidden rounded-2xl border border-white/10">
-              <Image
-                src="/images/portfolio_ecommerce.png"
-                alt="Ecommerce storefront redesign delivered by Barcha Digital"
-                width={900}
-                height={520}
-                className="h-48 w-full object-cover md:h-56"
-              />
-            </div>
-          </div>
-
-          <div className="grid gap-6">
-            <div className="panel p-8">
-              <p className="text-xs uppercase tracking-[0.24em] text-white/45">Founded</p>
-              <p className="mt-3 font-heading text-5xl font-bold text-white">2020</p>
-              <p className="mt-4 text-sm leading-7 text-white/65">
-                Starting from local consulting to becoming a multi-industry digital growth partner.
-              </p>
-            </div>
-            <div className="panel p-8">
-              <p className="text-xs uppercase tracking-[0.24em] text-white/45">Focus</p>
-              <p className="mt-3 font-heading text-3xl font-bold text-white">
-                Design, development, growth
-              </p>
-              <p className="mt-4 text-sm leading-7 text-white/65">
-                Connecting branding, performance marketing, and workflow automation into a single cohesive system.
-              </p>
-            </div>
-          </div>
-        </Reveal>
+      <section className="container">
+        <StatsBand items={highlights} />
       </section>
 
-      <section className="px-6 py-20 md:px-10">
-        <div className="mx-auto max-w-7xl">
+      {/* Founders */}
+      <section className="section">
+        <div className="container">
           <SectionHeading
-            eyebrow="Core Values"
-            title="What we protect in every project."
-            text="High-quality outcomes are built on strong principles, not just visual styles."
+            eyebrow="Founders"
+            title="The people you'll *actually work with.*"
+            text="No hand-offs to junior teams. Every project is led by the founders from kickoff to launch."
           />
+          <div className="grid gap-4 md:grid-cols-2">
+            {founders.map((f, i) => (
+              <article key={f.name} data-reveal style={{ "--d": `${i * 120}ms` }} className="card spotlight flex flex-col p-8 md:p-12">
+                <div className="flex items-center gap-5">
+                  <span className="grid h-16 w-16 place-items-center rounded-2xl bg-ink font-display text-xl font-semibold text-paper">
+                    {f.initials}
+                  </span>
+                  <div>
+                    <h3 className="text-2xl font-semibold">{f.name}</h3>
+                    <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.2em] text-accent">{f.role}</p>
+                  </div>
+                </div>
+                <p className="muted mt-8 leading-relaxed">{f.bio}</p>
+                <blockquote className="mt-auto border-t border-line pt-8 font-serif text-2xl italic leading-snug text-ink/90 md:text-[1.7rem]">
+                  “{f.quote}”
+                </blockquote>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
 
-          <Reveal className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-            {values.map((value, index) => (
-              <div key={value.title} className="panel p-7">
-                <p className="text-xs uppercase tracking-[0.24em] text-white/45">
-                  0{index + 1}
-                </p>
-                <h3 className="mt-3 font-heading text-2xl font-bold text-white">
-                  {value.title}
-                </h3>
-                <p className="mt-4 text-sm leading-7 text-white/65">{value.text}</p>
+      {/* Values */}
+      <section className="section border-y border-line bg-paper-2">
+        <div className="container">
+          <SectionHeading eyebrow="Values" title="Four rules we *don't bend.*" align="center" />
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {principles.map((p, i) => (
+              <div key={p.title} data-reveal style={{ "--d": `${i * 80}ms` }} className="card spotlight p-8">
+                <span className="font-serif text-5xl italic text-ink/20">0{i + 1}</span>
+                <h3 className="mt-8 text-xl font-semibold">{p.title}</h3>
+                <p className="muted mt-3 text-sm leading-relaxed">{p.text}</p>
               </div>
             ))}
-          </Reveal>
+          </div>
         </div>
       </section>
 
-      <CtaBanner />
+      {/* Group structure */}
+      <section className="section">
+        <div className="container">
+          <SectionHeading
+            eyebrow="Group structure"
+            title="Barcha Global & *Territory Growth.*"
+            text="Barcha Global is the parent company. Territory Growth is our specialist division for local service businesses, with its own focus, pricing and playbooks."
+          />
+          {ventures.map((v) => (
+            <VentureShowcase key={v.name} venture={v} />
+          ))}
+        </div>
+      </section>
+
+      {/* Where */}
+      <section className="pb-24 md:pb-36">
+        <div className="container grid gap-4 md:grid-cols-3">
+          {[
+            { icon: "globe", title: "Remote-first", text: `Team across Pakistan and the UAE. Clients across ${siteConfig.markets}.` },
+            { icon: "mail", title: "Talk to us", text: siteConfig.email },
+            { icon: "chat", title: "Fast replies", text: "We respond to every enquiry within 24 hours." },
+          ].map((item, i) => (
+            <div key={item.title} data-reveal style={{ "--d": `${i * 80}ms` }} className="card flex gap-5 p-8">
+              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-line text-accent">
+                <Icon name={item.icon} />
+              </span>
+              <div>
+                <h3 className="text-lg font-semibold">{item.title}</h3>
+                <p className="muted mt-1 text-sm">{item.text}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <CtaBanner title="Let's build something *remarkable.*" />
     </>
   );
 }

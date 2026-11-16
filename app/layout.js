@@ -1,96 +1,45 @@
-import { Inter, Space_Grotesk } from "next/font/google";
-import AmbientBackground from "../components/ambient-background";
-import AppShell from "../components/app-shell";
-import { organizationJsonLd, websiteJsonLd } from "../lib/seo";
+import { Inter, Inter_Tight, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import SiteHeader from "../components/site-header";
+import SiteFooter from "../components/site-footer";
+import Effects from "../components/effects";
+import { siteConfig } from "../lib/site-data";
+import { SITE_URL, organizationJsonLd } from "../lib/seo";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-space-grotesk",
-});
+const sans = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
+const display = Inter_Tight({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-display", display: "swap" });
+const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["italic"], variable: "--font-serif", display: "swap" });
+const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-mono", display: "swap" });
 
 export const metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Barcha Digital | Web, SEO & Ads Agency for Local Businesses",
-    template: "%s | Barcha Digital",
+    default: `${siteConfig.name} — Digital Agency for Web, Brand & Growth`,
+    template: `%s · ${siteConfig.name}`,
   },
-  description:
-    "Barcha Digital is a remote-first digital agency serving local businesses across the US, Canada, UK, and Australia — custom web development, WordPress, Shopify, Google & social ads, branding, AI-powered design, and SEO.",
-  keywords:
-    "web development agency, local business marketing, WordPress development, Shopify development, Google Ads, SEO agency, branding agency, AI design",
-  metadataBase: new URL("https://barchadigital.com"),
-  alternates: {
-    canonical: "/",
-    languages: {
-      "en-US": "/",
-      "en-CA": "/",
-      "en-GB": "/",
-      "en-AU": "/",
-      "x-default": "/",
-    },
-  },
-  openGraph: {
-    title: "Barcha Digital | Web, SEO & Ads Agency for Local Businesses",
-    description:
-      "Custom web development, WordPress, Shopify, Google & social ads, branding, AI-powered design, and SEO — built for local businesses that want measurable growth.",
-    type: "website",
-    siteName: "Barcha Digital",
-    url: "/",
-    locale: "en_US",
-    alternateLocale: ["en_GB", "en_CA", "en_AU"],
-    images: [
-      {
-        url: "/logo/logo-barcha-digital.png",
-        width: 200,
-        height: 134,
-        alt: "Barcha Digital logo",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Barcha Digital | Web, SEO & Ads Agency for Local Businesses",
-    description:
-      "Custom web development, WordPress, Shopify, Google & social ads, branding, AI-powered design, and SEO — built for local businesses that want measurable growth.",
-  },
-  robots: { index: true, follow: true },
-  icons: {
-    icon: "/favicon.svg",
-  },
+  description: siteConfig.description,
+  icons: { icon: "/favicon.svg" },
 };
 
 export const viewport = {
-  themeColor: "#050914",
+  themeColor: "#F7F6F2",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html
-      lang="en"
-      data-theme="dark"
-      className={`${inter.variable} ${spaceGrotesk.variable}`}
-    >
+    <html lang="en" className={`${sans.variable} ${display.variable} ${serif.variable} ${mono.variable}`}>
       <body>
+        <a href="#main" className="skip-link">
+          Skip to content
+        </a>
+        <SiteHeader />
+        <main id="main">{children}</main>
+        <SiteFooter />
+        <Effects />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()) }}
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd()) }}
-        />
-        <div className="relative min-h-screen">
-          <div className="pointer-events-none fixed inset-0 z-0 bg-white/[0.01]" />
-          <AmbientBackground />
-          <div className="relative z-10">
-            <AppShell>{children}</AppShell>
-          </div>
-        </div>
       </body>
     </html>
   );

@@ -1,222 +1,200 @@
-import Image from "next/image";
-import AutoSlider from "../components/auto-slider";
-import CtaBanner from "../components/cta-banner";
-import HomeHero from "../components/home-hero";
-import InProgressStrip from "../components/in-progress-strip";
-import MarqueeBanner from "../components/marquee-banner";
-import ProcessTimeline from "../components/process-timeline";
-import Reveal from "../components/reveal";
-import ResourcesSection from "../components/resources-section";
-import SectionHeading from "../components/section-heading";
-import { getPortfolioIcon } from "../components/portfolio-icons";
-import PortfolioThumb from "../components/portfolio-thumb";
-import { getServiceIcon } from "../components/service-icons";
-import ServiceCard from "../components/service-card";
-import TestimonialsMarquee from "../components/testimonials-marquee";
-import TrustStrip from "../components/trust-strip";
-import VerticalTicker from "../components/vertical-ticker";
-import { buildMetadata } from "../lib/seo";
+import Link from "next/link";
+import Icon from "../components/icons";
 import {
-  b2bHighlights,
-  featuredWork,
-  priorityIndustries,
+  Accent,
+  AnimatedHeadline,
+  CtaBanner,
+  ProcessGrid,
+  ProjectCard,
+  SectionHeading,
+  ServiceList,
+  Showreel,
+  StatsBand,
+  TextMarquee,
+  VentureShowcase,
+} from "../components/ui";
+import {
+  founders,
+  hero,
+  highlights,
+  principles,
   processSteps,
+  projects,
   services,
-  whyChooseUs,
+  ventures,
 } from "../lib/site-data";
-
-const featuredServices = services.slice(0, 6);
-
-export const metadata = buildMetadata({
-  title: "Barcha Digital | Web, SEO & Ads Agency for Local Businesses",
-  description:
-    "Barcha Digital is a remote-first digital agency delivering websites, SEO, ads, branding, and AI-powered design for local businesses across the US, Canada, UK, and Australia.",
-  keywords:
-    "web development agency, SEO agency, digital marketing agency, branding agency, Next.js development, custom websites, local business marketing",
-  path: "/",
-});
 
 export default function HomePage() {
   return (
     <>
-      <HomeHero />
-      <MarqueeBanner />
-      <TrustStrip />
+      {/* ── 1. Hero (dark) ── */}
+      <section className="theme-dark relative overflow-hidden bg-paper">
+        <div className="bg-grid pointer-events-none absolute inset-0" aria-hidden="true" />
+        <div className="container relative pt-40 md:pt-52">
+          <div className="rise flex items-center gap-3">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+            </span>
+            <span className="text-sm text-ink/60">Now booking new projects</span>
+          </div>
 
-      <section id="services" className="px-6 py-20 md:px-10">
-        <div className="mx-auto max-w-7xl">
-          <SectionHeading
-            eyebrow="Core Services"
-            title="Everything your brand needs in one premium system."
-            text="Website, SEO, branding, paid growth, and automation — not treated separately, but as one connected growth stack."
+          <AnimatedHeadline
+            lines={hero.lines}
+            delay={100}
+            className="mt-8 text-[3.2rem] font-semibold leading-[0.95] tracking-[-0.045em] sm:text-7xl md:text-8xl lg:text-[8.5rem]"
           />
 
-          <Reveal className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {featuredServices.map((service) => (
-              <ServiceCard key={service.slug} service={service} />
-            ))}
-          </Reveal>
+          <div className="mt-12 grid gap-10 md:grid-cols-12 md:items-end">
+            <p className="rise muted max-w-xl text-lg leading-relaxed md:col-span-6 md:text-xl" style={{ "--d": "450ms" }}>
+              {hero.text}
+            </p>
+            <div className="rise flex flex-wrap gap-3 md:col-span-6 md:justify-end" style={{ "--d": "550ms" }}>
+              <Link href="/contact" className="btn-accent !px-8 !py-4 text-base">
+                Start a project
+                <Icon name="arrowUpRight" className="h-4 w-4" />
+              </Link>
+              <Link href="/work" className="btn-ghost !px-8 !py-4 text-base">
+                View our work
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        <div className="rise relative mt-20 pb-20 md:mt-28 md:pb-28" style={{ "--d": "700ms" }}>
+          <Showreel projects={projects} />
         </div>
       </section>
 
-      <section id="priority-industries" className="px-6 py-20 md:px-10">
-        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1fr_0.8fr] lg:items-center">
-          <SectionHeading
-            eyebrow="Who We Serve Best"
-            title="Built for the businesses that need to rank and convert."
-            text="We focus where our systems perform strongest — home service and content-driven businesses, plus B2B companies that live or die by search visibility and lead generation."
-          />
+      {/* ── 2. Brand band ── */}
+      <TextMarquee items={services.map((s) => s.title)} />
 
-          <VerticalTicker items={priorityIndustries} />
-        </div>
-      </section>
-
-      <section id="b2b" className="px-6 py-20 md:px-10">
-        <div className="mx-auto max-w-7xl">
-          <SectionHeading
-            eyebrow="Beyond Local"
-            title="We also build for B2B companies."
-            text="Barcha Digital isn't only local-service work — we build the same premium standard for B2B teams: portals, technical SEO, and interfaces built to convert a slower, more research-heavy buyer."
-          />
-
-          <Reveal className="mt-12 grid gap-6 md:grid-cols-3">
-            {b2bHighlights.map((item) => (
-              <div key={item.title} className="panel overflow-hidden">
-                <div className="relative h-40 w-full bg-white/[0.02]">
-                  <Image
-                    src={item.image}
-                    alt={item.alt}
-                    fill
-                    sizes="(min-width: 768px) 33vw, 100vw"
-                    className="object-contain p-4"
-                  />
+      {/* ── 3. Intro + stats (white) ── */}
+      <section className="section">
+        <div className="container">
+          <div className="grid gap-12 lg:grid-cols-12">
+            <div className="lg:col-span-3" data-reveal>
+              <span className="eyebrow">Who we are</span>
+            </div>
+            <div className="lg:col-span-9">
+              <p data-reveal className="font-display text-3xl font-medium leading-[1.2] tracking-[-0.025em] text-ink md:text-5xl">
+                <Accent text="Barcha Global is an independent digital agency. We help ambitious companies *look world-class* online — and turn that into real growth." />
+              </p>
+              <div data-reveal style={{ "--d": "120ms" }} className="mt-10 flex flex-wrap items-center gap-6">
+                <div className="flex -space-x-3">
+                  {founders.map((f) => (
+                    <span
+                      key={f.name}
+                      className="grid h-12 w-12 place-items-center rounded-full border-2 border-paper bg-ink font-display text-sm font-semibold text-paper"
+                    >
+                      {f.initials}
+                    </span>
+                  ))}
                 </div>
-                <div className="p-6">
-                  <h3 className="font-heading text-lg font-bold text-white">{item.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-white/65">{item.text}</p>
-                </div>
-              </div>
-            ))}
-          </Reveal>
-        </div>
-      </section>
-
-      <TestimonialsMarquee />
-
-      <section id="why-barcha" className="px-6 py-20 md:px-10">
-        <div className="mx-auto max-w-7xl">
-          <SectionHeading
-            eyebrow="Why Barcha Digital"
-            title="Design isn't just pretty — it's purposeful."
-            text="Every section builds trust, clarifies the offer, and naturally guides users toward their next action."
-          />
-
-          <Reveal className="mt-12 grid gap-6 md:grid-cols-2">
-            {whyChooseUs.map((item, index) => (
-              <div key={item.title} className="panel p-7">
-                <div className="flex items-start justify-between gap-5">
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.25em] text-white/45">
-                      0{index + 1}
-                    </p>
-                    <h3 className="mt-3 font-heading text-2xl font-bold text-white">
-                      {item.title}
-                    </h3>
-                  </div>
-                  <div className="h-12 w-12 rounded-2xl border border-white/10 bg-white/[0.03]" />
-                </div>
-                <p className="mt-4 max-w-xl text-sm leading-7 text-white/65">
-                  {item.text}
+                <p className="muted text-sm">
+                  Led by founders <span className="text-ink">{founders.map((f) => f.name).join(" & ")}</span>
                 </p>
+                <Link href="/about" className="link-underline text-sm font-semibold text-ink">
+                  Our story →
+                </Link>
+              </div>
+            </div>
+          </div>
+          <div className="mt-20 md:mt-28">
+            <StatsBand items={highlights} />
+          </div>
+        </div>
+      </section>
+
+      {/* ── 4. Services (dark) ── */}
+      <section className="theme-dark section bg-paper">
+        <div className="container">
+          <SectionHeading
+            eyebrow="Capabilities"
+            title="One team for *everything* digital."
+            text="Strategy, design, engineering and marketing under one roof — so nothing gets lost between agencies."
+            action={
+              <Link href="/services" className="btn-ghost shrink-0">
+                All services
+                <Icon name="arrow" className="h-4 w-4" />
+              </Link>
+            }
+          />
+          <ServiceList services={services} />
+        </div>
+      </section>
+
+      {/* ── 5. Selected work (white) ── */}
+      <section className="section">
+        <div className="container">
+          <SectionHeading
+            eyebrow="Selected work"
+            title="Work that *performs.*"
+            text="Platforms, websites and stores we've designed and built for clients across the UK, UAE, US and Australia."
+            action={
+              <Link href="/work" className="btn-primary shrink-0">
+                All projects
+                <Icon name="arrow" className="h-4 w-4" />
+              </Link>
+            }
+          />
+          <div className="grid gap-x-8 gap-y-20 md:grid-cols-2">
+            {projects.slice(0, 4).map((p, i) => (
+              <div key={p.title} className={i % 2 === 1 ? "md:mt-32" : ""}>
+                <ProjectCard project={p} index={i} />
               </div>
             ))}
-          </Reveal>
-        </div>
-      </section>
-
-      <section id="featured-work" className="py-20">
-        <div className="px-6 md:px-10">
-          <div className="mx-auto max-w-7xl">
-            <SectionHeading
-              eyebrow="Featured Work"
-              title="Real projects, not mockups."
-              text="A few live sites we've shipped recently. Click through to see them in action."
-            />
-          </div>
-        </div>
-
-        <div className="mt-12">
-          <AutoSlider speed={30}>
-            {featuredWork.slice(0, 4).map((project) => {
-              const icon = project.iconSlug
-                ? getServiceIcon(project.iconSlug)
-                : getPortfolioIcon(project.iconKey);
-
-              return (
-                <a
-                  key={project.title}
-                  href={project.link || "/portfolio"}
-                  target={project.external ? "_blank" : undefined}
-                  rel={project.external ? "noopener noreferrer" : undefined}
-                  className="group panel block w-[320px] shrink-0 overflow-hidden transition hover:-translate-y-1 hover:border-primary/40 md:w-[360px]"
-                >
-                  <PortfolioThumb
-                    src={project.thumbnail}
-                    alt={`${project.title} website screenshot`}
-                    icon={icon}
-                    className="h-44"
-                  />
-                  <div className="space-y-3 p-6">
-                    <p className="text-xs uppercase tracking-[0.24em] text-white/45">
-                      {project.category}
-                    </p>
-                    <h3 className="font-heading text-xl font-bold text-white">
-                      {project.title}
-                    </h3>
-                    <p className="text-sm leading-6 text-white/65">{project.result}</p>
-                  </div>
-                </a>
-              );
-            })}
-          </AutoSlider>
-        </div>
-
-        <div className="mt-8 px-6 text-center md:px-10">
-          <div className="mx-auto max-w-7xl">
-            <a
-              href="/portfolio"
-              className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-highlight"
-            >
-              View Full Portfolio
-              <span aria-hidden="true">→</span>
-            </a>
           </div>
         </div>
       </section>
 
-      <InProgressStrip />
+      {/* ── 6. Process (soft) ── */}
+      <section className="section bg-paper-2">
+        <div className="container">
+          <SectionHeading eyebrow="Process" title="Clear steps. *No surprises.*" />
+          <ProcessGrid steps={processSteps} />
+        </div>
+      </section>
 
-      <MarqueeBanner
-        reverse
-        items={["Book a Call", "Let's Build Something", "Local Businesses Win Online", "Barcha Digital"]}
-      />
-
-      <ResourcesSection />
-
-      <section id="process" className="px-6 py-20 md:px-10">
-        <div className="mx-auto max-w-7xl">
+      {/* ── 8. Ventures (white) ── */}
+      <section className="section">
+        <div className="container">
           <SectionHeading
-            eyebrow="Process"
-            title="From idea to launch — a structured flow."
-            text="No guesswork. Every phase has a clear role so design, development, and business outcomes stay aligned."
+            eyebrow="Our ventures"
+            title="Specialist brands, *built in-house.*"
+            text="Some markets deserve a dedicated team. We build and operate focused companies around them."
           />
-
-          <div className="mt-12">
-            <ProcessTimeline steps={processSteps} />
-          </div>
+          {ventures.map((v) => (
+            <VentureShowcase key={v.name} venture={v} />
+          ))}
         </div>
       </section>
 
+      {/* ── 9. Principles (white) ── */}
+      <section className="section pt-0">
+        <div className="container grid gap-14 lg:grid-cols-12">
+          <div className="lg:col-span-5" data-reveal>
+            <span className="eyebrow">Why Barcha Global</span>
+            <h2 className="mt-5 text-4xl font-semibold leading-[1.02] tracking-[-0.03em] md:text-6xl">
+              <Accent text="Four rules we *don't bend.*" />
+            </h2>
+            <p className="muted mt-6 text-lg leading-relaxed">
+              You work directly with the founders — the same people who plan, build and report on your project.
+            </p>
+          </div>
+          <ul className="grid gap-px overflow-hidden rounded-3xl border border-line bg-line sm:grid-cols-2 lg:col-span-7">
+            {principles.map((p, i) => (
+              <li key={p.title} data-reveal style={{ "--d": `${i * 80}ms` }} className="spotlight bg-paper p-8 md:p-10">
+                <span className="font-mono text-xs text-accent">0{i + 1}</span>
+                <h3 className="mt-6 text-xl font-semibold">{p.title}</h3>
+                <p className="muted mt-3 text-sm leading-relaxed">{p.text}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* ── 10. CTA (dark) ── */}
       <CtaBanner />
     </>
   );
