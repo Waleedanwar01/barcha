@@ -1,4 +1,4 @@
-import { Inter, Inter_Tight, Instrument_Serif, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import SiteHeader from "../components/site-header";
 import SiteFooter from "../components/site-footer";
@@ -6,10 +6,32 @@ import Effects from "../components/effects";
 import { siteConfig } from "../lib/site-data";
 import { SITE_URL, organizationJsonLd } from "../lib/seo";
 
-const sans = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
-const display = Inter_Tight({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-display", display: "swap" });
-const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["italic"], variable: "--font-serif", display: "swap" });
-const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-mono", display: "swap" });
+// Fonts are self-hosted from app/fonts so builds never depend on Google Fonts.
+const sans = localFont({
+  src: "./fonts/inter.woff2",
+  weight: "100 900",
+  variable: "--font-sans",
+  display: "swap",
+});
+const display = localFont({
+  src: "./fonts/inter-tight.woff2",
+  weight: "100 900",
+  variable: "--font-display",
+  display: "swap",
+});
+const serif = localFont({
+  src: "./fonts/instrument-serif-italic.woff2",
+  weight: "400",
+  style: "italic",
+  variable: "--font-serif",
+  display: "swap",
+});
+const mono = localFont({
+  src: "./fonts/jetbrains-mono.woff2",
+  weight: "100 800",
+  variable: "--font-mono",
+  display: "swap",
+});
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
