@@ -41,6 +41,10 @@ export const metadata = {
   },
   description: siteConfig.description,
   icons: { icon: "/favicon.svg" },
+  // Google Search Console ownership verification
+  verification: {
+    google: "at8vMi9CR5Tr5WO2KtF0cQYD2ct-8LpEL0NY3oO2DeY",
+  },
 };
 
 export const viewport = {
